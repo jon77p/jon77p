@@ -16,7 +16,7 @@
 ---
 
 I'm a Product Security professional from Washington 🏔️.
-* 🔭 Passionate about AppSec, SAST, SARIF, and security automation.
+* 🔭 Passionate about SAST, SARIF, security automation, and anything else security!
 * ⚙️ Experience working on various security projects
 * 🔎 Always exploring new technologies.
 
