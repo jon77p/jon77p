@@ -1,0 +1,119 @@
+---
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+default_language_version:
+  python: python3.10
+repos:
+  # General hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: f71fa2c1f9cf5cb705f73dffe4b21f7c61470ba9 # frozen: v4.4.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-json
+        exclude: devcontainer\.json$
+      - id: check-toml
+      - id: check-vcs-permalinks
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: forbid-new-submodules
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+        exclude: .md
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 20447075e31543a8b125f2df18d75f3b5e7d4d2e # frozen: 0.22.0
+    hooks:
+      - id: check-dependabot
+      - id: check-github-actions
+      - id: check-github-workflows
+      - id: check-renovate
+  # General Linting-related hooks
+  - repo: https://github.com/markdownlint/markdownlint
+    rev: 5a6cc38e9dd10830df11fa5f6a5f44cfe83df389 # frozen: v0.12.0
+    hooks:
+      - id: markdownlint
+        args:
+          [
+            --config,
+            ".github/lint/.markdownlint.yaml",
+            --ignore-path,
+            ".gitignore",
+          ]
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: 62c175d3fee73e21416a3a9267a794b8d83d8475 # frozen: v3.0.0-alpha.8-for-vscode
+    hooks:
+      - id: prettier
+        args:
+          [
+            --config,
+            ".github/lint/.prettierrc.yaml",
+            --ignore-path,
+            ".gitignore",
+          ]
+  - repo: https://github.com/adrienverge/yamllint
+    rev: 98f2281f56be5503f3851e74556e1122fc18b2a8 # frozen: v1.31.0
+    hooks:
+      - id: yamllint
+        args: [--config-file, .github/lint/.yamllint.yaml]
+  # Secrets-related hooks
+  - repo: https://github.com/gitguardian/gg-shield
+    rev: e76d39ce2b48c489a3c29f8528a11dd4124bfb0d # frozen: v1.14.5
+    hooks:
+      - id: ggshield
+        args: [secret, scan, pre-commit]
+  - repo: https://github.com/sirwart/ripsecrets
+    rev: bffab8f67a008e845108f037eb9bf7e9c52da54f # frozen: v0.1.5
+    hooks:
+      - id: ripsecrets
+  - repo: https://github.com/zricethezav/gitleaks
+    rev: 62aef54969078f83cf8c4bffd4142bd43d726b86 # frozen: v8.16.3
+    hooks:
+      - id: gitleaks
+  # Python-related hooks
+  - repo: https://github.com/pycqa/pylint
+    rev: v3.0.2 # frozen: v3.0.0a6
+    hooks:
+      - id: pylint
+        args: ["-rn", "-sn", "--rcfile=.github/lint/.pylintrc"]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: b84480de6124681d551749528ab4b42c2269df8c # frozen: v1.2.0
+    hooks:
+      - id: mypy
+        args:
+          [
+            --ignore-missing-imports,
+            --follow-imports=silent,
+            --no-strict-optional,
+          ]
+  - repo: https://github.com/psf/black
+    rev: 23.10.1 # frozen: 23.3.0
+    hooks:
+      - id: black
+  # Golang-related hooks
+  - repo: https://github.com/dnephin/pre-commit-golang
+    rev: fb24a639f7c938759fe56eeebbb7713b69d60494 # frozen: v0.5.1
+    hooks:
+      - id: go-fmt
+      - id: go-vet
+      - id: go-mod-tidy
+      - id: go-mod-vendor
+  # Terraform-related hooks
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.22 # frozen: v0.1.21
+    hooks:
+      - id: terraform-fmt
+      - id: terraform-validate
+      - id: tflint
+  - repo: https://github.com/aquasecurity/tfsec
+    rev: 3c1870a2a59e2e923ca441dfa3f3dc89ceea8ddf # frozen: v1.28.1
+    hooks:
+      - id: tfsec
+  # Docker-related hooks
+  - repo: https://github.com/hadolint/hadolint
+    rev: 02c491342ac7c7a4c0617c01ddd51f49010a77f6 # frozen: v2.12.1-beta
+    hooks:
+      - id: hadolint-docker
