@@ -47,4 +47,4 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - name: "Dependency Review"
         if: needs.check.outputs.enabled == 'true'
-        uses: actions/dependency-review-action@4cd9eb2d23752464a87e00499c30d256a59a01b4 # v4
+        uses: actions/dependency-review-action@9411082069a756468829d3f464e0627d7fa2aaf6 # v4
